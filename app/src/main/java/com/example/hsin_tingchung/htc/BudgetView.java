@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hsin_tingchung.nav.R;
 
@@ -149,6 +150,7 @@ public class BudgetView extends Fragment {
             CurrentButtonNumber++;
             btn.setText(str);
             //btn.setOnClickListener(this);
+            Toast.makeText(getActivity(),c.getString(1), Toast.LENGTH_SHORT).show();
             LinearLayout.LayoutParams param =new LinearLayout.LayoutParams(1000,150);
             layout.addView(btn, param);
 
