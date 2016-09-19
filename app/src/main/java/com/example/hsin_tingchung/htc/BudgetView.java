@@ -135,7 +135,7 @@ public class BudgetView extends Fragment {
         str += "\n";
         output.setText(str);
         c.moveToFirst();  // first one
-        /*
+
 
         for (int i = 0; i < c.getCount(); i++) {
             str="";
@@ -144,18 +144,18 @@ public class BudgetView extends Fragment {
             str += c.getString(2) + "\t\t";
             str += c.getString(3);//+ "\n";
 
-            Button btn = new Button(this);
+            Button btn = new Button(getActivity());
             btn.setId(CurrentButtonNumber);
             CurrentButtonNumber++;
             btn.setText(str);
-            btn.setOnClickListener(this);
+            //btn.setOnClickListener(this);
             LinearLayout.LayoutParams param =new LinearLayout.LayoutParams(1000,150);
             layout.addView(btn, param);
 
             c.moveToNext();  // last one
         }
 
-        */
+        c.close();
         // Inflate the layout for this fragment
         return v;
     }
