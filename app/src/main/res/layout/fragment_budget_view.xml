@@ -39,7 +39,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="390dp"
             android:weightSum="1">
 
             <TextView
@@ -51,20 +51,26 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="361dp"
+                android:layout_height="222dp"
                 android:id="@+id/scrollView3"
                 android:fillViewport="false"
-                android:layout_weight="0.80">
+                android:layout_weight="0.68">
 
                 <LinearLayout
                     android:orientation="vertical"
+                    android:id="@+id/budget_output"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/budget_output">
+                    android:layout_height="wrap_content">
 
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
+
+        <Button
+            android:text="Done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/budget_item_save" />
     </LinearLayout>
 
 </FrameLayout>
