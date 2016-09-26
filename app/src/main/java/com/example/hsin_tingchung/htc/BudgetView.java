@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -141,19 +142,26 @@ public class BudgetView extends Fragment {
         for (int i = 0; i < c.getCount(); i++) {
             str="";
             str += c.getString(c.getColumnIndex(colNames[0])) + "\t\t";
-            str += c.getString(1) + "\t\t";
-            str += c.getString(2) + "\t\t";
-            str += c.getString(3);//+ "\n";
+            //str += c.getString(1) + "\t\t";
+            //str += c.getString(2) + "\t\t";
+            //str += c.getString(3);//+ "\n";
 
             Button btn = new Button(getActivity());
+            CurrentButtonNumber=Integer.parseInt(c.getString(c.getColumnIndex(colNames[0])));
             btn.setId(CurrentButtonNumber);
-            CurrentButtonNumber++;
+            //CurrentButtonNumber++;
             btn.setText(str);
-            //btn.setOnClickListener(this);
-            Toast.makeText(getActivity(),c.getString(1), Toast.LENGTH_SHORT).show();
-            LinearLayout.LayoutParams param =new LinearLayout.LayoutParams(1000,150);
+            btn.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    jumpLayout_ItemBudget(v);
+                }
+            });
+            //Toast.makeText(getActivity(),c.getString(1), Toast.LENGTH_SHORT).show();
+            LinearLayout.LayoutParams param =new LinearLayout.LayoutParams(300,100);
             layout.addView(btn, param);
-
             c.moveToNext();  // last one
         }
 
@@ -163,45 +171,30 @@ public class BudgetView extends Fragment {
     }
 
     public void jumpLayout_NewBudget(){
-        /*
-        setContentView(R.layout.activity_budget_new_item);
 
-        Button button02= (Button)findViewById(R.id.NewBugdetSave);
-
-        //OnClickListener
-        button02.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Switch pd= (Switch)findViewById(R.id.NewBudgetPeriod);
-                //period =Integer.parseInt(pd.getText().toString());
-
-                EditText nm= (EditText)findViewById(R.id.NewBudgetName);
-                name =nm.getText().toString();
-                EditText am= (EditText)findViewById(R.id.NewBudgetAmount);
-                amount =Integer.parseInt(am.getText().toString());
-
-                ContentValues cv1 = new ContentValues();
-                cv1.put("name",name);
-                cv1.put("period",1);
-                cv1.put("amount",amount);
-                db.insert(DATABASE_TABLE_IN, null, cv1);
-
-
-
-                Intent intent = new Intent();
-                intent.setClass(BudgetView.this, BudgetView.class);
-                startActivity(intent);
-                BudgetView.this.finish();
-            }
-        });
-        */
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
 
         BudgetNew nextFrag = new BudgetNew();
+        fragmentTransaction.replace(R.id.fragment_container, nextFrag);
+        //provide the fragment ID of your first fragment which you have given in
+        //fragment_layout_example.xml file in place of first argument
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }
+
+    public void jumpLayout_ItemBudget(View v){
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+
+        BudgetItem nextFrag = new BudgetItem();
+        Bundle bundle = new Bundle();
+        bundle.putString("ID", Integer.toString(v.getId()));
+        nextFrag.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment_container, nextFrag);
         //provide the fragment ID of your first fragment which you have given in
         //fragment_layout_example.xml file in place of first argument
